@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/routinerescue/schemas/routine-warranty/1.0.0",
+  "title": "Routine Warranty v1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "warranty_id",
+    "routine_id",
+    "name",
+    "aliases",
+    "steps",
+    "postconditions",
+    "forbidden_operations",
+    "recovery",
+    "verification"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "warranty_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "routine_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "aliases": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "step_id",
+          "operation",
+          "target",
+          "field",
+          "value",
+          "risk",
+          "requires_approval"
+        ],
+        "properties": {
+          "step_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "type": "string",
+            "enum": [
+              "LIGHT_ON",
+              "LIGHT_OFF",
+              "LOCK",
+              "UNLOCK",
+              "SET_ALARM"
+            ]
+          },
+          "target": {
+            "type": "string",
+            "minLength": 1
+          },
+          "field": {
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {},
+          "risk": {
+            "enum": [
+              "low",
+              "sensitive"
+            ]
+          },
+          "requires_approval": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "postconditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target",
+          "field",
+          "equals"
+        ],
+        "properties": {
+          "target": {
+            "type": "string",
+            "minLength": 1
+          },
+          "field": {
+            "type": "string",
+            "minLength": 1
+          },
+          "equals": {}
+        }
+      }
+    },
+    "forbidden_operations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "LIGHT_ON",
+          "LIGHT_OFF",
+          "LOCK",
+          "UNLOCK",
+          "SET_ALARM"
+        ]
+      }
+    },
+    "recovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "auto_retry_operations",
+        "max_auto_retries",
+        "sensitive_retry_requires_approval"
+      ],
+      "properties": {
+        "auto_retry_operations": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "LIGHT_ON",
+              "LIGHT_OFF",
+              "LOCK",
+              "UNLOCK",
+              "SET_ALARM"
+            ]
+          }
+        },
+        "max_auto_retries": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sensitive_retry_requires_approval": {
+          "const": true
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "require_readback",
+        "unknown_is_success"
+      ],
+      "properties": {
+        "require_readback": {
+          "const": true
+        },
+        "unknown_is_success": {
+          "const": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "warranty_id": "good-night-v1",
+  "routine_id": "good-night",
+  "name": "Good Night",
+  "aliases": [
+    "good night",
+    "time for bed"
+  ],
+  "steps": [
+    {
+      "step_id": "lights-off",
+      "operation": "LIGHT_OFF",
+      "target": "living_light",
+      "field": "power",
+      "value": "off",
+      "risk": "low",
+      "requires_approval": false
+    },
+    {
+      "step_id": "lock-door",
+      "operation": "LOCK",
+      "target": "front_door",
+      "field": "locked",
+      "value": true,
+      "risk": "sensitive",
+      "requires_approval": true
+    },
+    {
+      "step_id": "alarm-0700",
+      "operation": "SET_ALARM",
+      "target": "alarm",
+      "field": "time",
+      "value": "07:00",
+      "risk": "low",
+      "requires_approval": false
+    }
+  ],
+  "postconditions": [
+    {
+      "target": "living_light",
+      "field": "power",
+      "equals": "off"
+    },
+    {
+      "target": "front_door",
+      "field": "locked",
+      "equals": true
+    },
+    {
+      "target": "alarm",
+      "field": "time",
+      "equals": "07:00"
+    }
+  ],
+  "forbidden_operations": [
+    "UNLOCK"
+  ],
+  "recovery": {
+    "auto_retry_operations": [
+      "LIGHT_OFF"
+    ],
+    "max_auto_retries": 1,
+    "sensitive_retry_requires_approval": true
+  },
+  "verification": {
+    "require_readback": true,
+    "unknown_is_success": false
+  }
+}

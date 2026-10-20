@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RoutineRescue AI · Local Simulation</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<header class="topbar"><div class="brand"><span class="brandmark">RR</span><div><b>RoutineRescue <span>AI</span></b><small>Alexa+-style simulated experience</small></div></div><div class="offline">● Local-only demo</div></header>
+<main>
+<section class="hero"><div><div class="eyebrow">A NEW STANDARD FOR AGENT TRUST</div><h1>Don't just say <em>“done.”</em><br>Prove the outcome.</h1><p>An approved routine becomes a verifiable promise. Detect false success, ask for approval, and export failures as developer regression tests.</p></div><div class="hero-badge"><span>3</span><small>SIMULATED DEVICES</small></div></section>
+<div class="warning">Independent demonstration using <strong>virtual devices only</strong>. Not affiliated with, integrated into, or certified by Amazon or Alexa+. No physical lock or alarm is controlled.</div>
+<div class="layout"><section class="maincol">
+<div class="panel"><div class="panel-title"><div><small>01 / ROUTINE COMMAND</small><h2>What should I do?</h2></div><span class="chip">Intent Lock active</span></div>
+<label for="command">Voice-style command (text)</label><div class="command"><input id="command" value="good night" aria-label="Routine command"><button id="preview">Preview</button></div><p class="hint">Supported approved aliases: <code>good night</code> and <code>time for bed</code>. Unknown requests are not executed.</p>
+<div id="preview_result" class="preview_result">Select <b>Preview</b> to inspect the warranty before executing.</div>
+</div>
+<div class="panel"><div class="panel-title"><div><small>02 / CONTROLLED EXECUTION</small><h2>Run with a simulated fault</h2></div></div>
+<label for="fault">Failure scenario</label><select id="fault"><option value="none">No fault: complete routine</option><option value="false_success">False success twice: light stays on</option><option value="false_success_once">False success once: safe retry recovers</option><option value="unavailable_readback">State unavailable: must say unverified</option><option value="permission_revoked">Permission revoked: lock blocked</option><option value="timeout_after_commit">Timeout after success: verify readback</option><option value="partial_rollback">Partial rollback twice: light reverts after each write</option></select>
+<label class="check"><input id="approval" type="checkbox"> I explicitly approve simulated sensitive LOCK operation</label>
+<div class="actions"><button id="execute" class="primary">Execute virtual routine</button><button id="reset" class="secondary">Reset devices</button></div></div>
+<div class="panel"><div class="panel-title"><div><small>03 / EVIDENCE & RECOVERY</small><h2>Execution receipt</h2></div><span id="outcome" class="chip">Not run</span></div><div id="receipt"><p class="hint">Run a scenario to see outcomes, readbacks, retries, and constraints.</p></div><div class="actions"><button class="secondary" id="export" disabled>Export IntentProof test JSON</button></div></div>
+</section><aside class="sidecol"><div class="panel"><div class="panel-title"><div><small>LIVE VIRTUAL HOME</small><h2>Observed state</h2></div></div><div id="devices" class="devices"><p class="hint">Loading simulated devices...</p></div><p class="hint">State is read independently of the action acknowledgment and saved in local SQLite.</p></div>
+<div class="panel"><div class="panel-title"><div><small>ROUTINE WARRANTY</small><h2>Protected promises</h2></div></div><ul class="promises"><li>Living-room lights OFF</li><li>Front door LOCKED</li><li>Alarm set 07:00</li><li>Never UNLOCK as a side effect</li><li>Require approval for LOCK</li><li>Unknown readback is not success</li></ul></div><div class="panel"><div class="panel-title"><div><small>HOW IT CONNECTS</small><h2>To IntentProof</h2></div></div><p class="muted">Export a synthetic failure as scenario JSON, then run it with the independent <code>intentproof</code> CLI.</p><pre>intentproof run \
+  exported-scenario.json</pre></div></aside></div>
+</main><footer>RoutineRescue AI · local proof-of-concept · Python standard library + SQLite · no paid APIs</footer><script src="/app.js"></script></body></html>

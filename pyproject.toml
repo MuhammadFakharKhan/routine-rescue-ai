@@ -1,0 +1,12 @@
+[project]
+name = "routine-rescue-ai"
+version = "0.1.0"
+description = "Local-only Alexa+-style routine warranty simulation"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "RoutineRescue Contributors" }]
+dependencies = []
+
+[tool.setuptools]
+packages = ["app"]
