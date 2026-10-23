@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "warranty_id": "focus-mode-v2",
+  "routine_id": "focus-mode",
+  "name": "Focus Mode",
+  "aliases": [
+    "focus mode",
+    "start focusing",
+    "time to focus"
+  ],
+  "steps": [
+    {
+      "step_id": "desk-light-on",
+      "operation": "LIGHT_ON",
+      "target": "desk_light",
+      "field": "power",
+      "value": "on",
+      "risk": "low",
+      "requires_approval": false
+    },
+    {
+      "step_id": "ambient-off",
+      "operation": "LIGHT_OFF",
+      "target": "ambient_light",
+      "field": "power",
+      "value": "off",
+      "risk": "low",
+      "requires_approval": false
+    }
+  ],
+  "postconditions": [
+    {
+      "target": "desk_light",
+      "field": "power",
+      "equals": "on"
+    },
+    {
+      "target": "ambient_light",
+      "field": "power",
+      "equals": "off"
+    }
+  ],
+  "forbidden_operations": [
+    "UNLOCK"
+  ],
+  "recovery": {
+    "auto_retry_operations": [
+      "LIGHT_OFF",
+      "LIGHT_ON"
+    ],
+    "max_auto_retries": 1,
+    "sensitive_retry_requires_approval": true
+  },
+  "verification": {
+    "require_readback": true,
+    "unknown_is_success": false
+  },
+  "warranty_version": "2.0.0",
+  "invariants": [],
+  "side_effect_candidates": [
+    {
+      "target": "front_door",
+      "field": "locked",
+      "baseline": false
+    }
+  ],
+  "unchanged_fields": [
+    {
+      "target": "front_door",
+      "field": "locked"
+    }
+  ]
+}

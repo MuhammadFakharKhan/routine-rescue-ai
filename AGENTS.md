@@ -1,10 +1,11 @@
-# Coding Agent Instructions — RoutineRescue AI
+# Coding-agent rules for this repository
 
-1. Keep this an independent **Alexa+-style simulation**, never imply real Amazon access.
-2. Keep localhost-only, stdlib-only runtime unless a dependency is truly necessary.
-3. Prioritize truthful outcomes over cosmetic success messages. `UNKNOWN` is not `VERIFIED`.
-4. Never auto-run `UNLOCK`; require explicit approval for `LOCK`.
-5. Preserve IntentProof schema v1.0.0 compatibility; update both repositories together if you change it.
-6. Tests are required for any change to retry, permission or state semantics.
-7. No secrets, personal data, actual smart-lock access or copyrighted Amazon branding in the demo.
-8. Clearly mark features as implemented vs planned. Read `docs/rule.md` before preparing Devpost submission.
+1. Preserve the public v1 test scenario format and the v2 synthetic incident exchange format unless explicitly versioning them.
+2. Never claim live Amazon Alexa+, device integration, physical safety, or authenticated MCP access. This is a local simulation and a separate developer toolkit.
+3. Run all unit tests before proposing a release. Re-run the combined-package HTTP/CLI integration test when changing the exchange contract.
+4. Never execute remote tool code, fetch untrusted endpoints, or expose credentials through the simulator.
+5. Maintain mandatory approval for simulated LOCK; never enable UNLOCK in the local builder.
+6. Return `UNVERIFIED` when observation is unavailable; action acknowledgements alone are not proofs of success.
+7. Mutation coverage is bounded by modeled fields; include inventory fields where available and explain blind spots.
+8. Do not silently weaken contract postconditions, invariants, unchanged-field guards, forbidden operations or approval requirements.
+9. Separate RoutineRescue AI and IntentProof source repositories: integration is via documented JSON evidence contracts, not shared mutable internals.

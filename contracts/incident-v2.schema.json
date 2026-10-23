@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IntentProof portable synthetic incident v2.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "incident_id",
+    "created_at",
+    "source",
+    "intent",
+    "contract",
+    "execution",
+    "failure",
+    "recovery",
+    "replay_scenario",
+    "replay_sha256",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "2.0.0"
+    },
+    "incident_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "application",
+        "simulation",
+        "routine_id",
+        "warranty_version"
+      ],
+      "properties": {
+        "application": {
+          "type": "string"
+        },
+        "simulation": {
+          "const": true
+        },
+        "routine_id": {
+          "type": "string"
+        },
+        "warranty_version": {
+          "type": "string"
+        }
+      }
+    },
+    "intent": {
+      "type": "object",
+      "required": [
+        "approved_goal",
+        "trigger_phrases"
+      ],
+      "properties": {
+        "approved_goal": {
+          "type": "string"
+        },
+        "trigger_phrases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "contract": {
+      "type": "object",
+      "required": [
+        "postconditions",
+        "invariants",
+        "unchanged_fields"
+      ],
+      "properties": {
+        "postconditions": {
+          "type": "array"
+        },
+        "invariants": {
+          "type": "array"
+        },
+        "unchanged_fields": {
+          "type": "array"
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "required": [
+        "initial_state",
+        "final_state",
+        "events",
+        "outcome"
+      ],
+      "properties": {
+        "initial_state": {
+          "type": "object"
+        },
+        "final_state": {
+          "type": "object"
+        },
+        "events": {
+          "type": "array"
+        },
+        "outcome": {
+          "enum": [
+            "VERIFIED",
+            "RECOVERED",
+            "DEGRADED",
+            "UNVERIFIED",
+            "CANCELLED"
+          ]
+        }
+      }
+    },
+    "failure": {
+      "type": "object",
+      "required": [
+        "violations",
+        "side_effects"
+      ],
+      "properties": {
+        "violations": {
+          "type": "array"
+        },
+        "side_effects": {
+          "type": "array"
+        }
+      }
+    },
+    "recovery": {
+      "type": "object",
+      "required": [
+        "attempted",
+        "verified",
+        "proof"
+      ],
+      "properties": {
+        "attempted": {
+          "type": "boolean"
+        },
+        "verified": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "proof": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      }
+    },
+    "replay_scenario": {
+      "type": "object"
+    },
+    "replay_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "limitations": {
+      "type": "string"
+    }
+  }
+}
